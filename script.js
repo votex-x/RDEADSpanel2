@@ -1064,3 +1064,4 @@ function format(type) {
 
 // ===== INICIALIZAR =====
 console.log('Painel de Anúncios carregado com sucesso!');
+// Update: Sat Jan 24 14:16:41 EST 2026
