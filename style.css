@@ -1105,6 +1105,51 @@ input:checked + .slider:before {
     transform: translateX(20px);
 }
 
+/* ===== EDITOR CONTAINER & TOOLBAR ===== */
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toolbar {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-input);
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.toolbar button {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+}
+
+.toolbar button:hover {
+    background: var(--bg-tertiary);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.toolbar button:active {
+    background: var(--primary);
+    color: white;
+}
+
 /* ===== EMOJI PICKER ===== */
 .emoji-picker-container {
     position: relative;
@@ -1236,12 +1281,15 @@ input:checked + .slider:before {
     color: var(--text-muted);
 }
 
+#p-embed,
 .d-embed {
     background: var(--embed-bg);
     border-radius: 4px;
     margin-top: 8px;
     overflow: hidden;
     border: 1px solid var(--embed-border);
+    display: block !important;
+    visibility: visible !important;
 }
 
 .d-embed-wrapper {

@@ -933,5 +933,34 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
+// ===== FORMATAÇÃO DE TEXTO =====
+function format(type) {
+    const area = document.getElementById('embed-desc');
+    const start = area.selectionStart;
+    const end = area.selectionEnd;
+    const text = area.value;
+    const selected = text.substring(start, end);
+
+    if (!selected) return;
+
+    let formatted = '';
+    switch(type) {
+        case 'bold':
+            formatted = '**' + selected + '**';
+            break;
+        case 'italic':
+            formatted = '*' + selected + '*';
+            break;
+        case 'underline':
+            formatted = '__' + selected + '__';
+            break;
+    }
+
+    area.value = text.substring(0, start) + formatted + text.substring(end);
+    area.focus();
+    updatePreview();
+    autoSave();
+}
+
 // ===== INICIALIZAR =====
 console.log('Painel de Anúncios carregado com sucesso!');
