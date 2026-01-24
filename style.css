@@ -1483,10 +1483,16 @@ input:checked + .slider:before {
 @media (max-width: 1200px) {
     .editor-layout {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .preview-pane {
-        display: none;
+        display: block !important;
+        position: static !important;
+        top: auto !important;
+        min-width: 100% !important;
+        max-height: 500px;
+        margin-top: 20px;
     }
 
     .form-row {
