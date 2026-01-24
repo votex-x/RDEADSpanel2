@@ -768,6 +768,7 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 20px;
+    min-width: 500px;
 }
 
 .sticky-preview {
@@ -1234,11 +1235,15 @@ input:checked + .slider:before {
     background: #313338;
     padding: 20px;
     border-radius: 12px;
+    min-height: 400px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .d-msg {
     display: flex;
     gap: 16px;
+    width: 100%;
 }
 
 .d-avatar {
@@ -1252,6 +1257,7 @@ input:checked + .slider:before {
 .d-body {
     flex: 1;
     min-width: 0;
+    width: 100%;
 }
 
 .d-user {
@@ -1290,6 +1296,8 @@ input:checked + .slider:before {
     border: 1px solid var(--embed-border);
     display: block !important;
     visibility: visible !important;
+    min-height: 200px;
+    max-width: 100%;
 }
 
 .d-embed-wrapper {
