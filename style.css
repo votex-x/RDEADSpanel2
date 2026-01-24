@@ -1354,6 +1354,7 @@ input:checked + .slider:before {
     border-radius: 50%;
     flex-shrink: 0;
     object-fit: cover;
+    margin-top: 2px;
 }
 
 .d-body {
@@ -1366,8 +1367,9 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
     flex-wrap: wrap;
+    line-height: 1.25rem;
 }
 
 .d-username {
@@ -1449,7 +1451,7 @@ input:checked + .slider:before {
 
 .d-fields {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     margin-top: 12px;
 }
@@ -1584,6 +1586,14 @@ input:checked + .slider:before {
     height: 22px;
     vertical-align: bottom;
     margin: 0 2px;
+}
+
+.d-code {
+    background: #1e1f22;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    font-size: 85%;
 }
 
 /* ===== SETTINGS PAGE ===== */

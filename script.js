@@ -477,7 +477,7 @@ function selectAnnouncement(id, data) {
     loadButtons(embed.buttons || []);
 
     // Camuflagem
-    document.getElementById('cam-mode').checked = data.camouflage_mode || false;
+    document.getElementById('cam-mode').checked = data.cam_mode || false;
     document.getElementById('cam-name').value = data.cam_name || '';
     document.getElementById('cam-avatar').value = data.cam_avatar || '';
 
@@ -652,9 +652,12 @@ function updatePreview() {
             });
         }
         return rendered
+            .replace(/\*\*\*(.*?)\*\*\*/g, '<b><i>$1</i></b>')
             .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
             .replace(/\*(.*?)\*/g, '<i>$1</i>')
             .replace(/__(.*?)__/g, '<u>$1</u>')
+            .replace(/~~(.*?)~~/g, '<del>$1</del>')
+            .replace(/`(.*?)`/g, '<code class="d-code">$1</code>')
             .replace(/\n/g, '<br>');
     };
 
@@ -664,9 +667,9 @@ function updatePreview() {
     const embedColor = document.getElementById('embed-color').value;
     document.querySelector('.d-embed-wrapper').style.borderColor = embedColor;
 
-    const thumb = document.getElementById('embed-thumb').value;
+    const thumb = document.getElementById('embed-thumb').value.trim();
     const pThumb = document.getElementById('p-thumb');
-    if (thumb && (thumb.startsWith('http') || thumb.startsWith('data:image'))) {
+    if (thumb && (thumb.startsWith('http') || thumb.startsWith('data:image') || thumb.includes('cdn.discordapp.com') || thumb.includes('media.discordapp.net'))) {
         pThumb.src = thumb;
         pThumb.style.display = 'block';
         pThumb.onerror = () => { pThumb.style.display = 'none'; };
@@ -674,9 +677,9 @@ function updatePreview() {
         pThumb.style.display = 'none';
     }
 
-    const img = document.getElementById('embed-image').value;
+    const img = document.getElementById('embed-image').value.trim();
     const pImg = document.getElementById('p-image');
-    if (img && (img.startsWith('http') || img.startsWith('data:image'))) {
+    if (img && (img.startsWith('http') || img.startsWith('data:image') || img.includes('cdn.discordapp.com') || img.includes('media.discordapp.net'))) {
         pImg.src = img;
         pImg.style.display = 'block';
         pImg.onerror = () => { pImg.style.display = 'none'; };
@@ -685,12 +688,12 @@ function updatePreview() {
     }
 
     document.getElementById('p-footer-text').innerText = document.getElementById('embed-footer-text').value;
-    const fIcon = document.getElementById('embed-footer-icon').value;
+    const fIcon = document.getElementById('embed-footer-icon').value.trim();
     const pFooterIcon = document.getElementById('p-footer-icon');
-    if (fIcon) {
+    if (fIcon && (fIcon.startsWith('http') || fIcon.startsWith('data:image') || fIcon.includes('cdn.discordapp.com') || fIcon.includes('media.discordapp.net'))) {
         pFooterIcon.src = fIcon;
+        pFooterIcon.style.display = 'block';
         pFooterIcon.onerror = () => { pFooterIcon.style.display = 'none'; };
-        pFooterIcon.onload = () => { pFooterIcon.style.display = 'block'; };
     } else {
         pFooterIcon.style.display = 'none';
     }
@@ -726,9 +729,11 @@ function updatePreview() {
     // Camuflagem
     if (document.getElementById('cam-mode').checked) {
         document.getElementById('p-name').innerText = document.getElementById('cam-name').value || 'Vendedora';
-        const avatar = document.getElementById('cam-avatar').value;
-        if (avatar) {
+        const avatar = document.getElementById('cam-avatar').value.trim();
+        if (avatar && (avatar.startsWith('http') || avatar.startsWith('data:image') || avatar.includes('cdn.discordapp.com') || avatar.includes('media.discordapp.net'))) {
             document.getElementById('p-avatar').src = avatar;
+        } else {
+            document.getElementById('p-avatar').src = 'https://cdn.discordapp.com/embed/avatars/0.png';
         }
     } else {
         document.getElementById('p-name').innerText = 'Bot de Anúncios';
@@ -790,7 +795,7 @@ function saveAnnouncement(isAuto = false) {
         interval_hours: parseInt(document.getElementById('ann-interval-hours').value) || 0,
         interval_minutes: parseInt(document.getElementById('ann-interval-minutes').value) || 0,
         fixed_times: document.getElementById('ann-fixed-times').value.split(',').map(t => t.trim()).filter(t => t),
-        camouflage_mode: document.getElementById('cam-mode').checked,
+        cam_mode: document.getElementById('cam-mode').checked,
         cam_name: document.getElementById('cam-name').value,
         cam_avatar: document.getElementById('cam-avatar').value,
         embed: {
