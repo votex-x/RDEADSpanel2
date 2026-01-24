@@ -633,20 +633,24 @@ function updatePreview() {
             return;
         }
         
-        pTitle.innerText = embedTitle.value;
+    const renderDiscordText = (text) => {
+        if (!text) return '';
+        let rendered = text;
+        if (serverData?.emojis) {
+            serverData.emojis.forEach(e => {
+                const emojiCode = e.animated ? `<a:${e.name}:${e.id}>` : `<:${e.name}:${e.id}>`;
+                rendered = rendered.split(emojiCode).join(`<img src="${e.url}" class="d-emoji">`);
+            });
+        }
+        return rendered
+            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+            .replace(/\*(.*?)\*/g, '<i>$1</i>')
+            .replace(/__(.*?)__/g, '<u>$1</u>')
+            .replace(/\n/g, '<br>');
+    };
 
-    let desc = document.getElementById('embed-desc').value;
-    if (serverData?.emojis) {
-        serverData.emojis.forEach(e => {
-            const emojiCode = e.animated ? `<a:${e.name}:${e.id}>` : `<:${e.name}:${e.id}>`;
-            desc = desc.split(emojiCode).join(`<img src="${e.url}" class="d-emoji">`);
-        });
-    }
-    document.getElementById('p-desc').innerHTML = desc
-        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-        .replace(/\*(.*?)\*/g, '<i>$1</i>')
-        .replace(/__(.*?)__/g, '<u>$1</u>')
-        .replace(/\n/g, '<br>');
+    document.getElementById('p-title').innerHTML = renderDiscordText(document.getElementById('embed-title').value);
+    document.getElementById('p-desc').innerHTML = renderDiscordText(document.getElementById('embed-desc').value);
 
     document.getElementById('p-color').style.background = document.getElementById('embed-color').value;
 
@@ -689,7 +693,7 @@ function updatePreview() {
         const name = item.querySelector('.field-name-input').value;
         const value = item.querySelector('.field-value-input').value;
         if (name && value) {
-            fieldsHtml += `<div class="d-field"><div class="d-field-name">${name}</div><div class="d-field-value">${value}</div></div>`;
+            fieldsHtml += `<div class="d-field"><div class="d-field-name">${renderDiscordText(name)}</div><div class="d-field-value">${renderDiscordText(value)}</div></div>`;
         }
     });
     fieldsContainer.innerHTML = fieldsHtml;

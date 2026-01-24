@@ -1319,6 +1319,11 @@ input:checked + .slider:before {
     width: 100%;
 }
 
+.discord-preview.mobile-view .d-avatar {
+    width: 32px;
+    height: 32px;
+}
+
 .discord-preview.mobile-view .d-embed-wrapper {
     max-width: 100%;
 }
