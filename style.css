@@ -1391,36 +1391,33 @@ input:checked + .slider:before {
 
 #p-embed,
 .d-embed {
-    background: var(--embed-bg);
+    background: #2b2d31;
     border-radius: 4px;
     margin-top: 8px;
     overflow: hidden;
-    border: 1px solid var(--embed-border);
     display: block !important;
     visibility: visible !important;
-    min-height: 200px;
-    max-width: 100%;
+    max-width: 520px;
+    position: relative;
+    border: none;
 }
 
 .d-embed-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
+    padding: 12px 16px;
+    border-left: 4px solid #1e1f22;
 }
 
 .d-color {
-    width: 4px;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: none; /* Removido pois usamos border-left no wrapper */
 }
 
 .d-content {
     display: flex;
-    gap: 12px;
-    padding: 12px 16px;
-    padding-left: 20px;
+    gap: 16px;
+    justify-content: space-between;
 }
 
 .d-text {
@@ -1429,17 +1426,23 @@ input:checked + .slider:before {
 }
 
 .d-title {
-    font-weight: 700;
-    font-size: 15px;
-    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ffffff;
     margin-bottom: 8px;
     word-wrap: break-word;
+    cursor: pointer;
+}
+
+.d-title:hover {
+    text-decoration: underline;
+    color: #00a8fc;
 }
 
 .d-desc {
-    font-size: 13px;
-    color: #DBDEE1;
-    line-height: 1.5;
+    font-size: 0.875rem;
+    color: #dbdee1;
+    line-height: 1.375rem;
     word-wrap: break-word;
     white-space: pre-wrap;
 }
@@ -1474,35 +1477,69 @@ input:checked + .slider:before {
     width: 80px;
     height: 80px;
     border-radius: 4px;
-    object-fit: cover;
+    object-fit: contain;
     flex-shrink: 0;
+    margin-left: 16px;
 }
 
 .d-image {
     width: 100%;
-    max-height: 300px;
+    max-width: 100%;
     border-radius: 4px;
-    object-fit: cover;
-    margin-top: 12px;
+    object-fit: contain;
+    margin-top: 16px;
+    display: block;
 }
 
 .d-buttons {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 8px;
-    padding: 12px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 16px;
 }
 
 .d-button {
-    padding: 10px 16px;
+    padding: 2px 16px;
+    min-height: 32px;
+    min-width: 60px;
     border: none;
-    border-radius: 4px;
-    font-weight: 600;
+    border-radius: 3px;
+    font-weight: 500;
     font-size: 14px;
     cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.17s ease;
+    color: #ffffff;
+}
+
+.d-button.primary {
+    background-color: #5865f2;
+}
+.d-button.primary:hover {
+    background-color: #4752c4;
+}
+
+.d-button.secondary {
+    background-color: #4e5058;
+}
+.d-button.secondary:hover {
+    background-color: #6d6f78;
+}
+
+.d-button.success {
+    background-color: #248046;
+}
+.d-button.success:hover {
+    background-color: #1a6334;
+}
+
+.d-button.danger {
+    background-color: #da373c;
+}
+.d-button.danger:hover {
+    background-color: #a12828;
 }
 
 .d-button.primary {
@@ -1530,10 +1567,9 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 8px;
     font-size: 12px;
-    color: var(--text-muted);
+    color: #dbdee1;
 }
 
 .d-f-icon {

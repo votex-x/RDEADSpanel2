@@ -636,6 +636,15 @@ function updatePreview() {
     const renderDiscordText = (text) => {
         if (!text) return '';
         let rendered = text;
+        
+        // Processar variáveis de template (simulação no preview)
+        if (serverData) {
+            rendered = rendered.replace(/{server.name}/g, serverData.name || 'Servidor Exemplo');
+            rendered = rendered.replace(/{server.members}/g, serverData.members_count || '100');
+            rendered = rendered.replace(/{user.name}/g, 'Usuário');
+            rendered = rendered.replace(/{timestamp}/g, new Date().toLocaleString('pt-BR'));
+        }
+
         if (serverData?.emojis) {
             serverData.emojis.forEach(e => {
                 const emojiCode = e.animated ? `<a:${e.name}:${e.id}>` : `<:${e.name}:${e.id}>`;
@@ -652,24 +661,25 @@ function updatePreview() {
     document.getElementById('p-title').innerHTML = renderDiscordText(document.getElementById('embed-title').value);
     document.getElementById('p-desc').innerHTML = renderDiscordText(document.getElementById('embed-desc').value);
 
-    document.getElementById('p-color').style.background = document.getElementById('embed-color').value;
+    const embedColor = document.getElementById('embed-color').value;
+    document.querySelector('.d-embed-wrapper').style.borderColor = embedColor;
 
     const thumb = document.getElementById('embed-thumb').value;
     const pThumb = document.getElementById('p-thumb');
-    if (thumb) {
+    if (thumb && (thumb.startsWith('http') || thumb.startsWith('data:image'))) {
         pThumb.src = thumb;
+        pThumb.style.display = 'block';
         pThumb.onerror = () => { pThumb.style.display = 'none'; };
-        pThumb.onload = () => { pThumb.style.display = 'block'; };
     } else {
         pThumb.style.display = 'none';
     }
 
     const img = document.getElementById('embed-image').value;
     const pImg = document.getElementById('p-image');
-    if (img) {
+    if (img && (img.startsWith('http') || img.startsWith('data:image'))) {
         pImg.src = img;
+        pImg.style.display = 'block';
         pImg.onerror = () => { pImg.style.display = 'none'; };
-        pImg.onload = () => { pImg.style.display = 'block'; };
     } else {
         pImg.style.display = 'none';
     }
@@ -692,8 +702,10 @@ function updatePreview() {
     fieldItems.forEach(item => {
         const name = item.querySelector('.field-name-input').value;
         const value = item.querySelector('.field-value-input').value;
+        const inline = item.querySelector('.field-inline-input').checked;
         if (name && value) {
-            fieldsHtml += `<div class="d-field"><div class="d-field-name">${renderDiscordText(name)}</div><div class="d-field-value">${renderDiscordText(value)}</div></div>`;
+            const inlineStyle = inline ? 'grid-column: span 1;' : 'grid-column: 1 / -1;';
+            fieldsHtml += `<div class="d-field" style="${inlineStyle}"><div class="d-field-name">${renderDiscordText(name)}</div><div class="d-field-value">${renderDiscordText(value)}</div></div>`;
         }
     });
     fieldsContainer.innerHTML = fieldsHtml;
@@ -818,12 +830,13 @@ function sendAnnouncement() {
     saveAnnouncement(false);
 
     // Disparar envio
-    database.ref(`announcements/${currentAnnId}/trigger_send`).set(true).then(() => {
-        showNotification('Anúncio enviado com sucesso!', 'success');
-        addActivityLog(`Anúncio enviado: ${document.getElementById('ann-title').value || 'Sem título'}`, 'success');
+    // Usamos o timestamp para garantir que o listener do bot detecte a mudança mesmo que o valor anterior fosse true
+    database.ref(`announcements/${currentAnnId}/trigger_send`).set(firebase.database.ServerValue.TIMESTAMP).then(() => {
+        showNotification('Comando de envio enviado ao bot!', 'success');
+        addActivityLog(`Comando de envio: ${document.getElementById('ann-title').value || 'Sem título'}`, 'success');
     }).catch(err => {
         console.error('Erro ao enviar:', err);
-        showNotification('Erro ao enviar anúncio', 'error');
+        showNotification('Erro ao enviar comando', 'error');
     });
 }
 
