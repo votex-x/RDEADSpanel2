@@ -291,6 +291,30 @@ body {
     display: none;
 }
 
+.floating-preview-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.floating-preview-btn:active {
+    transform: scale(0.9);
+}
+
 .pc-only {
     display: inline;
 }
@@ -300,6 +324,7 @@ body {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 .page {
@@ -747,7 +772,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 500px;
     gap: 32px;
-    height: calc(100vh - 200px);
+    height: auto;
+    min-height: calc(100vh - 200px);
     padding: 20px;
 }
 
@@ -762,7 +788,7 @@ body {
     position: sticky;
     top: 20px;
     height: fit-content;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 40px);
     overflow-y: auto;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -1284,11 +1310,12 @@ input:checked + .slider:before {
 }
 
 .discord-preview.mobile-view {
-    padding: 10px;
+    padding: 8px;
+    width: 100%;
 }
 
 .discord-preview.mobile-view .d-msg {
-    max-width: 320px;
+    max-width: 100%;
     width: 100%;
 }
 
@@ -1554,16 +1581,24 @@ input:checked + .slider:before {
     .editor-layout {
         grid-template-columns: 1fr;
         gap: 20px;
+        height: auto;
+        overflow: visible;
+    }
+
+    .config-pane {
+        overflow: visible;
     }
 
     .preview-pane {
         display: block !important;
-        position: static !important;
+        position: relative !important;
         top: auto !important;
-        min-width: 100% !important;
-        max-height: none;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-height: none !important;
         margin-top: 20px;
-        order: -1; /* Coloca o preview no topo no mobile se desejar, ou remova para manter embaixo */
+        order: 2; /* Garante que o preview fique DEPOIS do formulário no mobile */
+        overflow: visible !important;
     }
 
     .discord-preview.pc-view {
@@ -1601,6 +1636,10 @@ input:checked + .slider:before {
 
     .mobile-only {
         display: block;
+    }
+
+    .floating-preview-btn {
+        display: flex;
     }
 
     .pc-only {

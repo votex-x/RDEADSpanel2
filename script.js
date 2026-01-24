@@ -166,6 +166,35 @@ function setupEventListeners() {
     document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
     document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
 
+    // Botão flutuante de preview no mobile
+    const scrollBtn = document.getElementById('scroll-to-preview');
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', () => {
+            const previewPane = document.querySelector('.preview-pane');
+            if (previewPane) {
+                previewPane.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Mostrar/ocultar botão baseado na página
+        const updateScrollBtnVisibility = (page) => {
+            scrollBtn.style.display = (page === 'create' && window.innerWidth <= 1200) ? 'flex' : 'none';
+        };
+
+        // Adicionar ao navigateTo
+        const originalNavigateTo = window.navigateTo;
+        window.navigateTo = (page) => {
+            if (typeof originalNavigateTo === 'function') originalNavigateTo(page);
+            updateScrollBtnVisibility(page);
+        };
+        
+        // Verificar no redimensionamento
+        window.addEventListener('resize', () => {
+            const activePage = document.querySelector('.page.active')?.id?.replace('-page', '');
+            updateScrollBtnVisibility(activePage);
+        });
+    }
+
     // Alternar Preview (PC/Mobile)
     const pcBtn = document.getElementById('preview-pc');
     const mobileBtn = document.getElementById('preview-mobile');
