@@ -681,11 +681,74 @@ body {
 }
 
 /* ===== EDITOR LAYOUT ===== */
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+    border-radius: var(--radius);
+}
+
+.editor-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.editor-actions button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #2dbb50;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #ff2d20;
+}
+
 .editor-layout {
     display: grid;
     grid-template-columns: 1fr 500px;
     gap: 32px;
-    height: 100%;
+    height: calc(100vh - 200px);
+    padding: 20px;
 }
 
 .config-pane {
@@ -697,10 +760,19 @@ body {
 
 .preview-pane {
     position: sticky;
-    top: 0;
+    top: 20px;
     height: fit-content;
-    max-height: 100vh;
+    max-height: calc(100vh - 100px);
     overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.sticky-preview {
+    position: sticky;
+    top: 20px;
 }
 
 .preview-header {

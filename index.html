@@ -204,6 +204,20 @@
 
                 <!-- Create/Edit Page -->
                 <div id="create-page" class="page">
+                    <div class="editor-header">
+                        <h2 id="current-ann-title">Novo Anúncio</h2>
+                        <div class="editor-actions">
+                            <button id="delete-btn" class="btn-danger" style="display:none;">
+                                <i class="fas fa-trash"></i> Deletar
+                            </button>
+                            <button id="save-btn" class="btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <button id="send-now-btn" class="btn-success">
+                                <i class="fas fa-paper-plane"></i> Enviar Agora
+                            </button>
+                        </div>
+                    </div>
                     <div class="editor-layout">
                         <div class="config-pane">
                             <!-- Seção: Informações Básicas -->
@@ -393,7 +407,7 @@
                         </div>
 
                         <!-- Preview -->
-                        <div class="preview-pane">
+                        <div class="preview-pane sticky-preview">
                             <div class="preview-header">
                                 <i class="fas fa-eye"></i> Preview Discord
                             </div>

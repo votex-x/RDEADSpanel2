@@ -368,6 +368,9 @@ function selectAnnouncement(id, data) {
     currentAnnId = id;
     database.ref(`presence/${sessionID}/editing`).set(id);
 
+    // Mostrar botão de deletar
+    document.getElementById('delete-btn').style.display = 'flex';
+
     // Atualizar título
     const title = data.title || data.embed?.title || 'Editando Anúncio';
     document.getElementById('current-ann-title').innerText = title;
@@ -420,6 +423,8 @@ function selectAnnouncement(id, data) {
 
 function createNewAnnouncement() {
     currentAnnId = null;
+    document.getElementById('delete-btn').style.display = 'none';
+    document.getElementById('current-ann-title').innerText = 'Novo Anúncio';
     document.querySelectorAll('input:not([type=hidden]), textarea, select').forEach(el => {
         if (el.id !== 'ann-channel') el.value = '';
     });
@@ -429,6 +434,7 @@ function createNewAnnouncement() {
     document.getElementById('fields-container').innerHTML = '';
     document.getElementById('buttons-container').innerHTML = '';
     document.getElementById('cam-mode').checked = false;
+    document.getElementById('ann-channel').value = '';
     toggleScheduleConfig();
     toggleCamouflageConfig();
     updatePreview();
