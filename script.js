@@ -69,6 +69,14 @@ function navigateTo(page) {
     if (page === 'dashboard' && !charts.sendChart) {
         initCharts();
     }
+    
+    // Atualizar preview se for a página create
+    if (page === 'create') {
+        setTimeout(() => {
+            updatePreview();
+            console.log('Preview atualizado');
+        }, 100);
+    }
 }
 
 function closeSidebar() {
@@ -558,7 +566,16 @@ function updateExpiryCountdown() {
 
 // ===== PREVIEW =====
 function updatePreview() {
-    document.getElementById('p-title').innerText = document.getElementById('embed-title').value;
+    try {
+        const pTitle = document.getElementById('p-title');
+        const embedTitle = document.getElementById('embed-title');
+        
+        if (!pTitle || !embedTitle) {
+            console.error('Elementos de preview não encontrados!');
+            return;
+        }
+        
+        pTitle.innerText = embedTitle.value;
 
     let desc = document.getElementById('embed-desc').value;
     if (serverData?.emojis) {
@@ -642,6 +659,9 @@ function updatePreview() {
     } else {
         document.getElementById('p-name').innerText = 'Bot de Anúncios';
         document.getElementById('p-avatar').src = 'https://cdn.discordapp.com/embed/avatars/0.png';
+    }
+    } catch (e) {
+        console.error('Erro ao atualizar preview:', e);
     }
 }
 
