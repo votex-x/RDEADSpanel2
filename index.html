@@ -409,9 +409,19 @@
                         <!-- Preview -->
                         <div class="preview-pane sticky-preview">
                             <div class="preview-header">
-                                <i class="fas fa-eye"></i> Preview Discord
+                                <div class="preview-title">
+                                    <i class="fas fa-eye"></i> Preview Discord
+                                </div>
+                                <div class="preview-toggle">
+                                    <button id="preview-pc" class="toggle-btn active" title="Visualização PC">
+                                        <i class="fas fa-desktop"></i>
+                                    </button>
+                                    <button id="preview-mobile" class="toggle-btn" title="Visualização Mobile">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="discord-preview">
+                            <div id="discord-preview-container" class="discord-preview pc-view">
                                 <div class="d-msg">
                                     <img id="p-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" class="d-avatar">
                                     <div class="d-body">

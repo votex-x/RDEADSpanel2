@@ -166,6 +166,35 @@ function setupEventListeners() {
     document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
     document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
 
+    // Alternar Preview (PC/Mobile)
+    const pcBtn = document.getElementById('preview-pc');
+    const mobileBtn = document.getElementById('preview-mobile');
+    const previewContainer = document.getElementById('discord-preview-container');
+
+    if (pcBtn && mobileBtn && previewContainer) {
+        const setView = (mode) => {
+            if (mode === 'mobile') {
+                mobileBtn.classList.add('active');
+                pcBtn.classList.remove('active');
+                previewContainer.classList.remove('pc-view');
+                previewContainer.classList.add('mobile-view');
+            } else {
+                pcBtn.classList.add('active');
+                mobileBtn.classList.remove('active');
+                previewContainer.classList.remove('mobile-view');
+                previewContainer.classList.add('pc-view');
+            }
+        };
+
+        pcBtn.addEventListener('click', () => setView('pc'));
+        mobileBtn.addEventListener('click', () => setView('mobile'));
+
+        // Auto-detectar mobile no carregamento
+        if (window.innerWidth <= 768) {
+            setView('mobile');
+        }
+    }
+
     // Atualizar preview em tempo real
     const editableFields = document.querySelectorAll(
         '#embed-title, #embed-desc, #embed-color, #embed-thumb, #embed-image, ' +

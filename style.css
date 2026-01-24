@@ -787,7 +787,47 @@ body {
     letter-spacing: 0.5px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
+}
+
+.preview-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.preview-toggle {
+    display: flex;
+    background: var(--bg-input);
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.toggle-btn:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.toggle-btn.active {
+    background: var(--primary);
+    color: white;
 }
 
 .section-card {
@@ -1237,11 +1277,41 @@ input:checked + .slider:before {
     border-radius: 12px;
     min-height: 400px;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s ease;
+    align-items: center;
 }
 
-.d-msg {
-    display: flex;
+.discord-preview.mobile-view {
+    padding: 10px;
+}
+
+.discord-preview.mobile-view .d-msg {
+    max-width: 320px;
+    width: 100%;
+}
+
+.discord-preview.mobile-view .d-embed-wrapper {
+    max-width: 100%;
+}
+
+.discord-preview.mobile-view .d-thumb {
+    width: 60px;
+    height: 60px;
+}
+
+.discord-preview.mobile-view .d-image {
+    max-height: 200px;
+}
+
+.discord-preview.mobile-view .d-title {
+    font-size: 14px;
+}
+
+.discord-preview.mobile-view .d-desc {
+    font-size: 13px;
+} display: flex;
     gap: 16px;
     width: 100%;
 }
@@ -1491,8 +1561,17 @@ input:checked + .slider:before {
         position: static !important;
         top: auto !important;
         min-width: 100% !important;
-        max-height: 500px;
+        max-height: none;
         margin-top: 20px;
+        order: -1; /* Coloca o preview no topo no mobile se desejar, ou remova para manter embaixo */
+    }
+
+    .discord-preview.pc-view {
+        padding: 10px;
+    }
+    
+    .discord-preview.pc-view .d-msg {
+        width: 100%;
     }
 
     .form-row {
